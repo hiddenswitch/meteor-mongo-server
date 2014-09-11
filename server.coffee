@@ -1,4 +1,3 @@
-tl = TLog?.getLogger()
 #hacky advanced mongo definitions based on https://github.com/meteor/meteor/pull/644
 
 path = Npm.require("path")
@@ -11,8 +10,6 @@ _dummyCollection_ = new Meteor.Collection '__dummy__'
 _futureWrapper = (collection, commandName, args)->
   col = if (typeof collection) == "string" then  _dummyCollection_ else collection
   collectionName = if (typeof collection) == "string" then  collection else collection._name
-
-  #tl?.debug "future Wrapper called for collection " + collectionName + " command: " + commandName + " args: " + args
 
   coll1 = col.find()._mongo.db.collection(collectionName)
 
@@ -31,14 +28,11 @@ _callMapReduce = (collection, map, reduce, options)->
   col = if (typeof collection) == "string" then  _dummyCollection_ else collection
   collectionName = if (typeof collection) == "string" then  collection else collection._name
 
-  tl?.debug "callMapReduce called for collection " + collectionName + " map: " + map + " reduce: " + reduce + " options: #{JSON.stringify(options)}"
-
   coll1 = col.find()._mongo.db.collection(collectionName)
 
   future = new Future
   #cb = future.resolver()
   coll1.mapReduce map, reduce, options, (err,result,stats)->
-      #tl?.debug "Inside MapReduce callback now!"
       future.throw(err) if err
       res = {collectionName: result.collectionName, stats: stats}
       future.return [true,res]
