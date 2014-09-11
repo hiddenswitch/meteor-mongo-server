@@ -3,21 +3,25 @@
 path = Npm.require("path")
 MongoDB = Npm.require("mongodb")
 Future = Npm.require(path.join("fibers", "future"))
+Collection = if Mongo?.Collection then Mongo.Collection else Meteor.Collection
 
-_dummyCollection_ = new Meteor.Collection '__dummy__'
+_dummyCollection_ = new Collection '__dummy__'
+
+_mongoCollection = ( collection )->
+  col = if (typeof collection) == "string" then  _dummyCollection_ else collection
+  collectionName = if (typeof collection) == "string" then  collection else collection._name
+  coll1 = null
+  col.find()._mongo._withDb ( db )-> coll1 = MongoInternals.NpmModule.Collection db, collectionName
+  coll1
 
 # Wrapper of the call to the db into a Future
 _futureWrapper = (collection, commandName, args)->
-  col = if (typeof collection) == "string" then  _dummyCollection_ else collection
-  collectionName = if (typeof collection) == "string" then  collection else collection._name
-
-  coll1 = col.find()._mongo.db.collection(collectionName)
-
+  coll1 = _mongoCollection collection
   future = new Future
   cb = future.resolver()
   args = args.slice()
   args.push(cb)
-  coll1[commandName].apply(coll1, args)
+  coll1[commandName]?.apply(coll1, args)
   result = future.wait()
 
 
@@ -25,10 +29,7 @@ _futureWrapper = (collection, commandName, args)->
 # Not really DRY, but have to return slightly different results from mapReduce as mongo method returns
 # a mongo collection, which we don't need here at all
 _callMapReduce = (collection, map, reduce, options)->
-  col = if (typeof collection) == "string" then  _dummyCollection_ else collection
-  collectionName = if (typeof collection) == "string" then  collection else collection._name
-
-  coll1 = col.find()._mongo.db.collection(collectionName)
+  coll1 = _mongoCollection collection
 
   future = new Future
   #cb = future.resolver()
@@ -46,7 +47,8 @@ _callMapReduce = (collection, map, reduce, options)->
 
 
 # Extending Collection on the server
-_.extend Meteor.Collection::,
+
+_.extend Collection::,
 
   distinct: (key, query, options) ->
     #_collectionDistinct @_name, key, query, options
