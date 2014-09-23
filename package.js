@@ -5,7 +5,9 @@ Package.describe({
     git: "https://github.com/hiddenswitch/meteor-mongo-server.git"
 });
 
-Npm.depends({mongodb: "1.3.17"});
+Npm.depends({
+    mongodb: "https://github.com/meteor/node-mongodb-native/tarball/cbd6220ee17c3178d20672b4a1df80f82f97d4c1"
+});
 
 Package.onUse(function (api) {
     api.versionsFrom('METEOR@0.9.0');
