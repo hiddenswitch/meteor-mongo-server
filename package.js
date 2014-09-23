@@ -1,8 +1,8 @@
 Package.describe({
-    summary: "Straightforward implementation of mongodb aggregation framework",
-    version: "1.0.3",
-    name: "zvictor:mongodb-server-aggregation",
-    git: "https://github.com/zvictor/meteor-mongo-server.git"
+    summary: "Meteor 0.9+ supported mongodb aggregation framework",
+    version: "1.0.4",
+    name: "hiddenswitch:mongodb-server-aggregation",
+    git: "https://github.com/hiddenswitch/meteor-mongo-server.git"
 });
 
 Npm.depends({mongodb: "1.3.17"});
