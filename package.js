@@ -1,7 +1,7 @@
 Package.describe({
     summary: "Meteor 0.9+ supported mongodb aggregation framework",
     version: "1.0.4",
-    name: "hiddenswitch:mongodb-server-aggregation",
+    name: "doctorpangloss:mongodb-server-aggregation",
     git: "https://github.com/hiddenswitch/meteor-mongo-server.git"
 });
 
