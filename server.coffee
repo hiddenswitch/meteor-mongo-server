@@ -54,8 +54,8 @@ _.extend Collection::,
     #_collectionDistinct @_name, key, query, options
     _futureWrapper @_name, "distinct", [key, query, options]
 
-  aggregate: (pipeline) ->
-    _futureWrapper @_name, "aggregate", [pipeline]
+  aggregate: (pipeline, options) ->
+    _futureWrapper @_name, "aggregate", [pipeline, options]
 
   mapReduce: (map, reduce, options)->
     options = options || {};
