@@ -51,7 +51,11 @@ _.extend Collection::,
     _futureWrapper @_name, "distinct", [key, query, options]
 
   aggregate: (pipeline, options) ->
-    _futureWrapper @_name, "aggregate", [pipeline, options]
+    args = [pipeline]
+    # Passing undefined options to aggregate is meaningful
+    if options
+      args = [pipeline, options]
+    _futureWrapper @_name, "aggregate", args
 
   mapReduce: (map, reduce, options)->
     options = options || {};

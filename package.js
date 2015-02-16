@@ -32,5 +32,6 @@ Package.onTest(function(api) {
   configurePackage(api);
 
   api.use('tinytest');
-  // api.addFiles('tests/tests.js'); // no tests yet
+  api.use('accounts-base');
+  api.addFiles('server-tests.js', 'server'); // no tests yet
 });
