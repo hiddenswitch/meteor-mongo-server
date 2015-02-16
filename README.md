@@ -1,14 +1,16 @@
 meteor-mongodb-mapreduce-aggregation
 ====================================
 
-Very simple implementation of some of mongodb aggregation framework functions for Meteor.
+An authoritative MongoDB `aggregate`, `mapReduce` and `distinct` package for Meteor. This differs from other packages
+by including tests and letting you pass options to calls to aggregate.
 
-**meteor-mongodb-mapreduce-aggregation** is a fork of [meteor-mongo-server](https://github.com/zvictor/meteor-mongo-server)
-that do not expose the aggregation framework to the client, being available only on server side.
+##### Documentation
 
-Unfortunately the original source was not working for me anymore as a plugin and seems to be not maintained. So I created this plugin and bugfixed it.
+`Mongo.Collection` on the server is extended with with 3 methods: `mapReduce`, `distinct` and `aggregate`. You can
+specify `options` for `aggregate` when using MongoDB 2.6 or later in hosted environments.
 
-It extends `Collection` with 3 methods so far, **mapReduce**, **distinct** and **aggregate**, so that you can do:
+When specifying options, make sure to include a `readPreference` field, e.g., `{readPreference: 'primary'}`. Read more
+about [read preferences](http://docs.mongodb.org/manual/core/read-preference/).
 
 ```coffeescript
     col = new Meteor.Collection "name"
@@ -83,7 +85,7 @@ Another [mapReduce](http://docs.mongodb.org/manual/core/map-reduce/) example in 
 
 To install it, run:
 ```bash
-$ meteor add monbro:mongodb-mapreduce-aggregation
+$ meteor add doctorpangloss:mongodb-mapreduce-aggregation
 ```
 
-This package is MIT Licensed. Do whatever you like with it but any responsibility for doing so is your own.
+This package is MIT Licensed.
