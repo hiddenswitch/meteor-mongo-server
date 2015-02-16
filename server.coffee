@@ -31,15 +31,12 @@ _callMapReduce = (collection, map, reduce, options)->
   coll1 = _mongoCollection collection
 
   future = new Future
-  #cb = future.resolver()
   coll1.mapReduce map, reduce, options, (err,result,stats)->
       future.throw(err) if err
       res = {collectionName: result.collectionName, stats: stats}
       future.return [true,res]
 
   result = future.wait() #
-  #console.log "Result from the callMapReduce is: "
-  #console.dir result[1]
   throw result[1] if !result[0]
   result[1]
 
