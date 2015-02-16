@@ -1,7 +1,6 @@
 #hacky advanced mongo definitions based on https://github.com/meteor/meteor/pull/644
 
 path = Npm.require("path")
-MongoDB = Npm.require("mongodb")
 Future = Npm.require(path.join("fibers", "future"))
 Collection = if Mongo?.Collection then Mongo.Collection else Meteor.Collection
 
