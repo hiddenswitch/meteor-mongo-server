@@ -85,7 +85,7 @@ Another [mapReduce](http://docs.mongodb.org/manual/core/map-reduce/) example in 
 
 To install it, run:
 ```bash
-$ meteor add doctorpangloss:mongodb-mapreduce-aggregation
+$ meteor add doctorpangloss:mongodb-server-aggregation
 ```
 
 This package is MIT Licensed.
